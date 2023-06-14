@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { AddCategory } from "./components/AddCategory";
+import { GiftGrid } from "./components/GiftGrid";
 
 export const GifExpertApp = () => {
 
-    const [categories, setCategories] = useState(['One Punch', 'Dragon Ball']);
+    const [categories, setCategories] = useState([ 'Dragon Ball' ]);
 
     const onAddCategory = ( newCategory ) =>{
-        console.log(newCategory);
+
+        if( categories.includes(newCategory) ){
+
+            alert('Ya existe la categoria');
+            return;
+        };
         
-        // setCategories([ newCategory, ...categories]);
+        setCategories([ newCategory, ...categories]);
         // setCategories(cat => [...cat, 'Valorant']);
     };
 
@@ -17,15 +23,18 @@ export const GifExpertApp = () => {
      <h1>GifExpertApp</h1>
 
         <AddCategory
-            // setCategories={ setCategories }
-            onNewCategory = { ( value ) => onAddCategory( value ) }
+            // setCategories={ setCategories } // eslo mismo que poner:    value => setCategories( value )
+            onNewCategory = { ( event ) => onAddCategory( event ) }
         />
 
-     <ol>
-        { categories.map( categoria => {
-            return <li key={categoria}>{categoria}</li>
-        }) }
-     </ol>
+        { categories.map( category => (
+            <GiftGrid
+                key={ category }
+                category={category}
+            />
+        )    
+        ) }
+     
     </>
   )
 }

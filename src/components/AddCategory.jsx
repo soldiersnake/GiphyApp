@@ -10,15 +10,16 @@ export const AddCategory = ({ onNewCategory }) => {
 
   const onSubmit = ( event ) => {
     event.preventDefault();
-    if( inputValue.trim().length <= 1) return;
+    const valorInput = inputValue.trim();
+    if( valorInput.length <= 1) return;
 
     // setCategories( categories => [ inputValue, ...categories ]);
-    onNewCategory()
     setInputValue('');
+    onNewCategory(valorInput.trim());
   }
 
   return (
-    <form onSubmit={ (event) => onSubmit(event)}>
+    <form onSubmit={ onSubmit }>
       <input
         type="text"
         placeholder='Buscar gifs'
